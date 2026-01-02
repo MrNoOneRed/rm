@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class AgeRating(BaseModel):
+class IGDBAgeRating(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     rating: str

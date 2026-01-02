@@ -1,7 +1,8 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
-class Firmware(BaseModel):
+
+class FirmwareSchema(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     id: int

@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class IgdbPlatform(BaseModel):
+class IGDBMetadataPlatform(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     id: int

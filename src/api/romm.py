@@ -1,3 +1,5 @@
+from urllib.parse import unquote
+
 import httpx
 
 from pydantic import TypeAdapter
@@ -5,6 +7,7 @@ from src.config import config
 from src.models.CustomLimitOffsetPage import CustomLimitOffsetPage
 from src.models.PlatformSchema import PlatformSchema
 from src.payloads.GetRoms import GetRoms
+from src.payloads.GetRomsDownload import GetRomsDownload
 
 
 class RomMApi:
@@ -31,10 +34,28 @@ class RomMApi:
 
         return PlatformSchema.model_validate(response.json())
 
-    # TODO: Dokonczyc problemy z typowaniem danych romow
-
     def get_roms(self, payload: GetRoms) -> CustomLimitOffsetPage:
-        response = self.client.get(f"/roms")
+        params = payload.model_dump(exclude_none=True)
+        response = self.client.get(url=f"/roms", params=params)
         response.raise_for_status()
 
         return CustomLimitOffsetPage.model_validate(response.json())
+
+    def get_roms_download(self, payload: GetRomsDownload) -> str:
+        params = payload.model_dump(exclude_none=True)
+
+        with self.client.stream("GET", url=f"/roms/download", params=params, timeout=None) as response:
+            response.raise_for_status()
+            cd = response.headers.get("content-disposition", "")
+            filename = "roms.zip"
+
+            if "filename=" in cd:
+                filename = unquote(cd.split("filename=")[-1].strip('"'))
+
+            path = f"./data/{filename}"
+
+            with open(path, "wb") as f:
+                for chunk in response.iter_bytes(1024 * 1024):
+                    f.write(chunk)
+
+            return path

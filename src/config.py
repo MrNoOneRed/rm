@@ -12,6 +12,10 @@ class ConfigMapping(BaseModel):
     platform_id: int
     path: str
 
+class ConfigSystem(BaseModel):
+    name: str
+    extensions: list[str]
+
 class ConfigRoot(BaseModel):
     base: ConfigBase = Field(default_factory=ConfigBase)
     mappings: list[ConfigMapping] = Field(default_factory=list)
@@ -22,6 +26,7 @@ class Config(BaseSettings):
     root_path: str = "/userdata"
     base: ConfigBase = {}
     mappings: list[ConfigMapping] = []
+    systems: list[ConfigSystem] = []
 
     def __init__(self):
         super().__init__()
@@ -38,6 +43,7 @@ class Config(BaseSettings):
         if not self.path().exists():
             self.save()
 
+        #TODO: Dodac defaulty systemow
         loaded: ConfigRoot = ConfigRoot(base=self.base, mappings=self.mappings)
         loaded = loaded.model_validate_json(self.path().read_text(encoding="utf-8"))
 

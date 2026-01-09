@@ -8,6 +8,7 @@ def main():
     manager = Manager()
     manager.create_mapping(9, "snes-aftermarket", ["#Aftermarket"])
     manager.create_mapping(10, "snes-demo", ["#Demo"])
+    manager.create_mapping(8, "snes")
 
 
 

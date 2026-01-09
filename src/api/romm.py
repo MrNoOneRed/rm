@@ -1,7 +1,6 @@
-from urllib.parse import unquote
-
 import httpx
 
+from urllib.parse import unquote
 from pydantic import TypeAdapter
 from src.config import config
 from src.models.CustomLimitOffsetPage import CustomLimitOffsetPage
@@ -15,16 +14,15 @@ class RomMApi:
     def __init__(self, timeout: float = 10.0):
         self.headers = {"Accept": "application/json"}
         self.client = httpx.Client(
-            base_url=config.romm_base_url,
+            base_url=config.base.romm_base_url,
             headers=self.headers,
             timeout=timeout,
-            auth=httpx.BasicAuth(username=config.romm_username, password=config.romm_password)
+            auth=httpx.BasicAuth(username=config.base.romm_username, password=config.base.romm_password)
         )
 
     def get_platforms(self) -> list[PlatformSchema]:
         response = self.client.get("/platforms")
         response.raise_for_status()
-
 
         return TypeAdapter(list[PlatformSchema]).validate_python(response.json())
 

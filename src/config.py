@@ -1,32 +1,15 @@
 import sys
 from pathlib import Path
-from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from src.models.config import Base, Mapping, Root
 
-class ConfigBase(BaseModel):
-    romm_base_url: str = ""
-    romm_username: str = ""
-    romm_password: str = ""
-
-class ConfigMapping(BaseModel):
-    platform_id: int
-    path: str
-
-class ConfigSystem(BaseModel):
-    name: str
-    extensions: list[str]
-
-class ConfigRoot(BaseModel):
-    base: ConfigBase = Field(default_factory=ConfigBase)
-    mappings: list[ConfigMapping] = Field(default_factory=list)
 
 class Config(BaseSettings):
     model_config = SettingsConfigDict(extra="ignore")
 
     root_path: str = "/userdata"
-    base: ConfigBase = {}
-    mappings: list[ConfigMapping] = []
-    systems: list[ConfigSystem] = []
+    base: Base = {}
+    mappings: list[Mapping] = []
 
     def __init__(self):
         super().__init__()
@@ -43,8 +26,7 @@ class Config(BaseSettings):
         if not self.path().exists():
             self.save()
 
-        #TODO: Dodac defaulty systemow
-        loaded: ConfigRoot = ConfigRoot(base=self.base, mappings=self.mappings)
+        loaded = self.root()
         loaded = loaded.model_validate_json(self.path().read_text(encoding="utf-8"))
 
         self.base = loaded.base
@@ -54,8 +36,8 @@ class Config(BaseSettings):
         self.path().parent.mkdir(parents=True, exist_ok=True)
         self.path().write_text(self.root().model_dump_json(ensure_ascii=False, indent=2), encoding="utf-8")
 
-    def root(self) -> ConfigRoot:
-        return ConfigRoot(base=self.base, mappings=self.mappings)
+    def root(self) -> Root:
+        return Root(base=self.base, mappings=self.mappings)
 
     def path(self) -> Path:
         return Path(f"{self.root_path}/.config/rm/config.json")

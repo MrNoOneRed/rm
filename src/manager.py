@@ -1,7 +1,8 @@
 from pathlib import Path
 
 from src.api.romm import RomMApi
-from src.config import ConfigMapping, config
+from src.config import config
+from src.models.config import Mapping
 from src.payloads.GetRoms import GetRoms
 from src.payloads.GetRomsDownload import GetRomsDownload
 
@@ -12,7 +13,7 @@ class Manager:
         self.rommApi = RomMApi()
 
     @staticmethod
-    def create_mapping(platform_id: int, system: str, subpath: list[str] | None = None) -> ConfigMapping:
+    def create_mapping(platform_id: int, system: str, extensions: tuple[str, ...], subpath: list[str] | None = None) -> Mapping:
         path = Path(f"{config.root_path}/roms/{system}")
 
         if subpath is not None and len(subpath) > 0:
@@ -24,8 +25,10 @@ class Manager:
 
         path.mkdir(parents=True, exist_ok=True)
 
-        mapping: ConfigMapping = ConfigMapping(
+        mapping: Mapping = Mapping(
             platform_id=platform_id,
+            system=system,
+            extensions=extensions,
             path=path.__str__()
         )
 
@@ -34,7 +37,7 @@ class Manager:
 
         return mapping
 
-    def check_mapping(self, mapping: ConfigMapping) -> None:
+    def check_mapping(self, mapping: Mapping) -> None:
         platform = self.rommApi.get_platform(mapping.platform_id)
 
 

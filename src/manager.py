@@ -5,6 +5,8 @@ from src.config import config
 from src.models.config import Mapping
 from src.payloads.GetRoms import GetRoms
 from src.payloads.GetRomsDownload import GetRomsDownload
+from src.utils import count_files
+
 
 class Manager:
     rommApi: RomMApi
@@ -37,8 +39,15 @@ class Manager:
 
         return mapping
 
-    def check_mapping(self, mapping: Mapping) -> None:
-        platform = self.rommApi.get_platform(mapping.platform_id)
+    def check_mapping(self, mapping: Mapping, quick: bool = True) -> None:
+        if quick:
+            platform = self.rommApi.get_platform(mapping.platform_id)
+            left = platform.rom_count
+            right = count_files(mapping.path, extensions=mapping.extensions)
+            print(mapping)
+            print(platform)
+            print(left)
+            print(right)
 
 
     def platform_download(self, platform_id: int):

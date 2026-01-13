@@ -13,3 +13,4 @@ systems = Systems(
     snes=System(name="snes", extensions=("smc", "fig", "sfc", "gd3", "gd7", "dx2", "bsx", "swc", "zip", "7z")),
     channelf=System(name="channelf", extensions=("zip", "rom", "bin", "chf"))
 )
+

@@ -7,17 +7,11 @@ from src.setup.systems import systems
 
 def main():
     manager = Manager()
-    manager.create_mapping(9, "snes", systems.snes.extensions, ["#Aftermarket"])
-    manager.create_mapping(10, "snes", systems.snes.extensions, ["#Demo"])
-    manager.create_mapping(8, "snes", systems.snes.extensions)
+    mapping = manager.create_mapping(9, systems.snes.name, systems.snes.extensions, ["#Aftermarket"])
+    # manager.create_mapping(10, systems.snes.name, systems.snes.extensions, ["#Demo"])
+    # manager.create_mapping(8, systems.snes.name, systems.snes.extensions)
 
-
+    manager.check_mapping(mapping)
 
 if __name__ == "__main__":
-    # if sys.argv[1] == "dev":
-    #     config.base.root_path = "./data"
-    # else:
-    #     config.base.root_path = "/userdata"
-
-
     main()

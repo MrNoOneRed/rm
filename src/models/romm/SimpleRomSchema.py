@@ -1,20 +1,20 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import BaseModel, ConfigDict, field_validator, BeforeValidator
-from src.models.RomFileSchema import RomFileSchema
-from src.models.RomFlashpointMetadata import RomFlashpointMetadata
-from src.models.RomGamelistMetadata import RomGamelistMetadata
-from src.models.RomHLTBMetadata import RomHLTBMetadata
-from src.models.RomHasheousMetadata import RomHasheousMetadata
-from src.models.RomIGDBMetadata import RomIGDBMetadata
-from src.models.RomLaunchboxMetadata import RomLaunchboxMetadata
-from src.models.RomMetadataSchema import RomMetadataSchema
-from src.models.RomMobyMetadata import RomMobyMetadata
-from src.models.RomRAMetadata import RomRAMetadata
-from src.models.RomSSMetadata import RomSSMetadata
-from src.models.RomUserSchema import RomUserSchema
-from src.models.SiblingRomSchema import SiblingRomSchema
+from pydantic import BaseModel, ConfigDict, BeforeValidator
+from src.models.romm.RomFileSchema import RomFileSchema
+from src.models.romm.RomFlashpointMetadata import RomFlashpointMetadata
+from src.models.romm.RomGamelistMetadata import RomGamelistMetadata
+from src.models.romm.RomHLTBMetadata import RomHLTBMetadata
+from src.models.romm.RomHasheousMetadata import RomHasheousMetadata
+from src.models.romm.RomIGDBMetadata import RomIGDBMetadata
+from src.models.romm.RomLaunchboxMetadata import RomLaunchboxMetadata
+from src.models.romm.RomMetadataSchema import RomMetadataSchema
+from src.models.romm.RomMobyMetadata import RomMobyMetadata
+from src.models.romm.RomRAMetadata import RomRAMetadata
+from src.models.romm.RomSSMetadata import RomSSMetadata
+from src.models.romm.RomUserSchema import RomUserSchema
+from src.models.romm.SiblingRomSchema import SiblingRomSchema
 from src.validators.modelValidators import empty_dict_to_none
 
 

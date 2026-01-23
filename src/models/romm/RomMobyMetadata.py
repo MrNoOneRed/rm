@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from src.models.MobyMetadataPlatform import MobyMetadataPlatform
+from src.models.romm.MobyMetadataPlatform import MobyMetadataPlatform
 
 
 class RomMobyMetadata(BaseModel):

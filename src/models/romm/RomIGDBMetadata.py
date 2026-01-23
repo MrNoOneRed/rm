@@ -1,8 +1,8 @@
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, BeforeValidator
-from src.models.IGDBAgeRating import IGDBAgeRating
-from src.models.IGDBMetadataPlatform import IGDBMetadataPlatform
-from src.models.IGDBRelatedGame import IGDBRelatedGame
+from src.models.romm.IGDBAgeRating import IGDBAgeRating
+from src.models.romm.IGDBMetadataPlatform import IGDBMetadataPlatform
+from src.models.romm.IGDBRelatedGame import IGDBRelatedGame
 from src.validators.modelValidators import empty_dict_to_none
 
 

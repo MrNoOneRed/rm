@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
-from src.models.FirmwareSchema import FirmwareSchema
+from src.models.romm.FirmwareSchema import FirmwareSchema
 
 
 class PlatformSchema(BaseModel):

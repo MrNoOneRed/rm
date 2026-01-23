@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from src.models.LaunchboxImage import LaunchboxImage
+from src.models.romm.LaunchboxImage import LaunchboxImage
 
 
 class RomLaunchboxMetadata(BaseModel):

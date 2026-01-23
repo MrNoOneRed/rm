@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from src.models.SimpleRomSchema import SimpleRomSchema
+from src.models.romm.SimpleRomSchema import SimpleRomSchema
 
 
 class CustomLimitOffsetPage(BaseModel):

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from src.models.RAGameRomAchievement import RAGameRomAchievement
+from src.models.romm.RAGameRomAchievement import RAGameRomAchievement
 
 
 class RomRAMetadata(BaseModel):
